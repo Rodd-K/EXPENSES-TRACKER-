@@ -5,13 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Money- Cash tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="page">
-
     <header class="ledger-header">
       <div class="header-top">
         <h1>Anonnymous tracker</h1>
@@ -22,11 +20,9 @@
         <span class="total-amount" id="totalAmount">KSh 0</span>
       </div>
     </header>
-
     <section class="entry-form-section">
       <form id="entryForm">
         <input type="hidden" id="editingId" value="">
-
         <div class="field-row">
           <div class="field">
             <label for="title">What was it</label>
@@ -37,7 +33,6 @@
             <input type="number" id="amount" name="amount" placeholder="0" min="0" step="1" required>
           </div>
         </div>
-
         <div class="field-row">
           <div class="field">
             <label for="category">Category</label>
@@ -57,14 +52,12 @@
             <input type="date" id="date" name="date" required>
           </div>
         </div>
-
         <div class="form-actions">
           <button type="submit" id="submitBtn" class="btn-primary">Add entry</button>
           <button type="button" id="cancelEditBtn" class="btn-text" hidden>Cancel edit</button>
         </div>
       </form>
     </section>
-
     <section class="entries-section">
       <div class="entries-heading">
         <span>Date</span>
@@ -73,22 +66,17 @@
         <span class="align-right">Amount</span>
         <span class="align-right">Actions</span>
       </div>
-
       <div id="entriesList" class="entries-list">
         <!-- Rows are rendered here by app.js -->
       </div>
-
       <p id="emptyState" class="empty-state" hidden>
         No entries yet. Add your first expense above — it'll show up here.
       </p>
     </section>
-
     <footer class="page-footer">
       <p>Frontend only for now — entries live in the browser and reset on reload. Backend comes next.</p>
     </footer>
-
   </div>
-
   <script src="app.js"></script>
 </body>
 </html>
