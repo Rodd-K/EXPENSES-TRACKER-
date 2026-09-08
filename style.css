@@ -1,0 +1,269 @@
+/* ===================================================
+   Ledger — Expense Tracker
+   Palette: sage ledger paper, ink, brass, brick-red
+   =================================================== */
+
+:root {
+  --paper: #E7ECDF;
+  --card: #FBFAF6;
+  --ink: #1F2D26;
+  --ink-soft: #4B5B50;
+  --rule: #B7C2AC;
+  --rule-soft: #D3DBC8;
+  --brass: #A97C3F;
+  --brick: #A34037;
+  --focus: #4B6B52;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--rule-soft) 1px, transparent 1px);
+  background-size: 100% 2.1rem;
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 40px 20px 60px;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ---------- Header ---------- */
+
+.ledger-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 18px;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+}
+
+.header-top h1 {
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 2.1rem;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.tagline {
+  margin: 4px 0 0 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.total-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.total-label {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.total-amount {
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 1.7rem;
+  color: var(--brass);
+}
+
+/* ---------- Entry form ---------- */
+
+.entry-form-section {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 22px 24px;
+  margin-bottom: 34px;
+}
+
+.field-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.field-amount {
+  max-width: 160px;
+}
+
+label {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+input, select {
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  font-size: 0.95rem;
+  padding: 9px 11px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: white;
+  color: var(--ink);
+}
+
+input:focus, select:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--card);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 0.92rem;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  font-weight: 500;
+}
+
+.btn-primary:hover { background: #33453A; }
+
+.btn-text {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* ---------- Entries list ---------- */
+
+.entries-heading {
+  display: grid;
+  grid-template-columns: 90px 1fr 110px 100px 90px;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  padding: 0 6px 8px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.entry-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 110px 100px 90px;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 6px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.entry-row .entry-date {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.entry-row .entry-title {
+  font-weight: 500;
+}
+
+.entry-row .entry-category {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.align-right { text-align: right; }
+
+.entry-amount {
+  text-align: right;
+  color: var(--brick);
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 0.95rem;
+}
+
+.entry-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.entry-actions button {
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+}
+
+.entry-actions button.delete-btn:hover { color: var(--brick); }
+.entry-actions button.edit-btn:hover { color: var(--focus); }
+
+.empty-state {
+  padding: 30px 6px;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ---------- Footer ---------- */
+
+.page-footer {
+  margin-top: 40px;
+  border-top: 1px solid var(--rule);
+  padding-top: 14px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .entries-heading { display: none; }
+
+  .entry-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 14px 6px;
+  }
+
+  .entry-row .entry-date { order: 1; }
+  .entry-row .entry-title { order: 2; }
+  .entry-row .entry-category { order: 3; }
+  .entry-amount { order: 4; text-align: left; }
+  .entry-actions { order: 5; justify-content: flex-start; margin-top: 4px; }
+
+  .field-row { flex-direction: column; gap: 14px; }
+  .field-amount { max-width: none; }
+
+  .ledger-header { align-items: flex-start; }
+  .total-box { align-items: flex-start; text-align: left; }
+}
+
+/* ---------- Reduced motion / accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
