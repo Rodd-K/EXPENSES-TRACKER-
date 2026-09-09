@@ -13,10 +13,10 @@
 // APPWRITE SETUP — fill these 3 values in during class
 // ---------------------------------------------------
 
-const APPWRITE_ENDPOINT = "https://cloud.appwrite.io/v1"; // change if self-hosted
-const APPWRITE_PROJECT_ID = "PASTE_YOUR_PROJECT_ID_HERE";
-const DATABASE_ID = "PASTE_YOUR_DATABASE_ID_HERE";
-const COLLECTION_ID = "PASTE_YOUR_COLLECTION_ID_HERE"; // the "expenses" collection
+const APPWRITE_ENDPOINT = "https://fra.cloud.appwrite.io/v1"; // change if self-hosted
+const APPWRITE_PROJECT_ID = "6aa12f60001f3da99671";
+const DATABASE_ID = "6aa132570021b57b7e44";
+const COLLECTION_ID = "6aa13291000bdc802b93"; // the "expenses" collection
 
 const client = new Appwrite.Client()
   .setEndpoint(APPWRITE_ENDPOINT)
