@@ -14,9 +14,9 @@
 // ---------------------------------------------------
 
 const APPWRITE_ENDPOINT = "https://fra.cloud.appwrite.io/v1"; // change if self-hosted
-const APPWRITE_PROJECT_ID = "6aa12f60001f3da99671";
-const DATABASE_ID = "6aa132570021b57b7e44";
-const COLLECTION_ID = "6aa13291000bdc802b93"; // the "expenses" collection
+const APPWRITE_PROJECT_ID = "6aa134c30024b6fbbc02";
+const DATABASE_ID = "6aa1355d0014132323b9";
+const COLLECTION_ID = "6aa1358e003b67bf0502"; // the "expenses" collection
 
 const client = new Appwrite.Client()
   .setEndpoint(APPWRITE_ENDPOINT)
