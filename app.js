@@ -2,54 +2,73 @@
    Ledger — Expense Tracker
    app.js
 
-   NOTE FOR THE STUDENT:
-   All four data functions below (getExpenses, createExpense,
-   updateExpense, deleteExpense) are written as "async" and
-   return Promises, even though right now they just use a
-   local array. That's on purpose — when we connect Supabase
-   or Appwrite next, only the INSIDE of these four functions
-   changes. Nothing else in this file needs to be touched.
+   BACKEND: Appwrite
+   Read + Create are connected to a real Appwrite database.
+   Update + Delete are still LOCAL STUBS for this lesson —
+   they show a message instead of changing real data.
+   We wire those up in the next lesson.
    =================================================== */
 
 // ---------------------------------------------------
-// DATA LAYER (this is the part that becomes Supabase/Appwrite later)
+// APPWRITE SETUP — fill these 3 values in during class
 // ---------------------------------------------------
 
-let expenses = [
-  { id: 1, title: "Lunch",        amount: 450,  category: "Food",      date: "2026-09-06" },
-  { id: 2, title: "Uber to work", amount: 300,  category: "Transport", date: "2026-09-07" },
-  { id: 3, title: "Electricity",  amount: 1800, category: "Bills",     date: "2026-09-05" },
-];
+const APPWRITE_ENDPOINT = "https://cloud.appwrite.io/v1"; // change if self-hosted
+const APPWRITE_PROJECT_ID = "PASTE_YOUR_PROJECT_ID_HERE";
+const DATABASE_ID = "PASTE_YOUR_DATABASE_ID_HERE";
+const COLLECTION_ID = "PASTE_YOUR_COLLECTION_ID_HERE"; // the "expenses" collection
 
-let nextId = 4; // TODO: remove once the database auto-generates ids
+const client = new Appwrite.Client()
+  .setEndpoint(APPWRITE_ENDPOINT)
+  .setProject(APPWRITE_PROJECT_ID);
+
+const databases = new Appwrite.Databases(client);
+
+// ---------------------------------------------------
+// DATA LAYER
+// ---------------------------------------------------
+
+// Turns an Appwrite document ($id, $createdAt, etc.) into the
+// simple shape the rest of this file already expects.
+function normalizeDoc(doc) {
+  return {
+    id: doc.$id,
+    title: doc.title,
+    amount: doc.amount,
+    category: doc.category,
+    date: doc.date,
+  };
+}
 
 async function getExpenses() {
-  // TODO (backend day): replace with
-  // const { data, error } = await supabase.from('expenses').select('*').order('date', { ascending: false });
-  // return data;
-  return [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const response = await databases.listDocuments(
+    DATABASE_ID,
+    COLLECTION_ID,
+    [Appwrite.Query.orderDesc("date")]
+  );
+  return response.documents.map(normalizeDoc);
 }
 
 async function createExpense(entry) {
-  // TODO (backend day): replace with
-  // const { data, error } = await supabase.from('expenses').insert([entry]).select();
-  const newEntry = { id: nextId++, ...entry };
-  expenses.push(newEntry);
-  return newEntry;
+  const doc = await databases.createDocument(
+    DATABASE_ID,
+    COLLECTION_ID,
+    Appwrite.ID.unique(),
+    entry
+  );
+  return normalizeDoc(doc);
 }
 
 async function updateExpense(id, updatedFields) {
-  // TODO (backend day): replace with
-  // const { data, error } = await supabase.from('expenses').update(updatedFields).eq('id', id);
-  expenses = expenses.map(exp =>
-    exp.id === id ? { ...exp, ...updatedFields } : exp
-  );
+  // NOT CONNECTED YET — wiring this up next lesson.
+  console.log("updateExpense stub called with:", id, updatedFields);
+  alert("Editing isn't connected to Appwrite yet — that's next lesson's job!");
 }
 
 async function deleteExpense(id) {
-  // TODO (backend day): replace with
-  // const { error } = await supabase.from('expenses').delete().eq('id', id);
-  expenses = expenses.filter(exp => exp.id !== id);
+  // NOT CONNECTED YET — wiring this up next lesson.
+  console.log("deleteExpense stub called with:", id);
+  alert("Deleting isn't connected to Appwrite yet — that's next lesson's job!");
 }
 
 // ---------------------------------------------------
@@ -150,10 +169,10 @@ form.addEventListener('submit', async (event) => {
   const editingId = editingIdInput.value;
 
   if (editingId) {
-    await updateExpense(Number(editingId), entry);
+    await updateExpense(editingId, entry); // stub for now
     exitEditMode();
   } else {
-    await createExpense(entry);
+    await createExpense(entry); // real Appwrite insert
   }
 
   form.reset();
@@ -162,15 +181,11 @@ form.addEventListener('submit', async (event) => {
 });
 
 entriesList.addEventListener('click', async (event) => {
-  const id = Number(event.target.dataset.id);
+  const id = event.target.dataset.id;
   if (!id) return;
 
   if (event.target.classList.contains('delete-btn')) {
-    const confirmed = confirm('Delete this entry? This can\'t be undone.');
-    if (!confirmed) return;
-
-    await deleteExpense(id);
-    await renderExpenses();
+    await deleteExpense(id); // stub for now
   }
 
   if (event.target.classList.contains('edit-btn')) {
