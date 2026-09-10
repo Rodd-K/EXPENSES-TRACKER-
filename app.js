@@ -17,9 +17,20 @@
 // SUPABASE_KEY: the "Publishable key" (this used to be called the "anon key" —
 // same idea, safe to use in frontend code, do NOT use the secret key here)
 
-const SUPABASE_URL = "https://osfvossfnxobhcxvddtz.supabase.co";
-const SUPABASE_KEY = "sb_publishable_ITsFlK5Bv5FTlMi9eDUQ_w_jTd2_yJV";
+const SUPABASE_URL = "PASTE_YOUR_PROJECT_URL_HERE";
+const SUPABASE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ---------------------------------------------------
+// LOGIN GUARD
+// ---------------------------------------------------
+// Not logged in? Send back to the login page before anything else runs.
+
+const loggedInUser = sessionStorage.getItem('loggedInUser');
+if (!loggedInUser) {
+  window.location.href = 'login.html';
+}
 
 // ---------------------------------------------------
 // DATA LAYER
@@ -74,6 +85,20 @@ const cancelEditBtn = document.getElementById('cancelEditBtn');
 const entriesList = document.getElementById('entriesList');
 const emptyState = document.getElementById('emptyState');
 const totalAmountEl = document.getElementById('totalAmount');
+
+const userNameDisplay = document.getElementById('userNameDisplay');
+const logoutBtn = document.getElementById('logoutBtn');
+
+if (userNameDisplay && loggedInUser) {
+  userNameDisplay.textContent = loggedInUser;
+}
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    sessionStorage.removeItem('loggedInUser');
+    window.location.href = 'login.html';
+  });
+}
 
 // Default the date field to today
 dateInput.value = new Date().toISOString().split('T')[0];
