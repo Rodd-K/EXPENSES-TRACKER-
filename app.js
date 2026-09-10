@@ -10,6 +10,16 @@
    =================================================== */
 
 // ---------------------------------------------------
+// LOGIN GUARD — runs first, before anything that could fail
+// ---------------------------------------------------
+// Not logged in? Send back to the login page before anything else runs.
+
+const loggedInUser = sessionStorage.getItem('loggedInUser');
+if (!loggedInUser) {
+  window.location.href = 'login.html';
+}
+
+// ---------------------------------------------------
 // SUPABASE SETUP — fill these 2 values in during class
 // ---------------------------------------------------
 // Both are on your project's Settings > API page.
@@ -21,16 +31,6 @@ const SUPABASE_URL = "PASTE_YOUR_PROJECT_URL_HERE";
 const SUPABASE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// ---------------------------------------------------
-// LOGIN GUARD
-// ---------------------------------------------------
-// Not logged in? Send back to the login page before anything else runs.
-
-const loggedInUser = sessionStorage.getItem('loggedInUser');
-if (!loggedInUser) {
-  window.location.href = 'login.html';
-}
 
 // ---------------------------------------------------
 // DATA LAYER
