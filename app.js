@@ -3,10 +3,8 @@
    app.js
 
    BACKEND: Supabase
-   Read + Create are connected to a real Supabase table.
-   Update + Delete are still LOCAL STUBS for this lesson —
-   they show a message instead of changing real data.
-   We wire those up in the next lesson.
+   All four operations (Read, Create, Update, Delete) are
+   connected to the real Supabase "expenses" table.
    =================================================== */
 
 // ---------------------------------------------------
@@ -57,15 +55,21 @@ async function createExpense(entry) {
 }
 
 async function updateExpense(id, updatedFields) {
-  // NOT CONNECTED YET — wiring this up next lesson.
-  console.log("updateExpense stub called with:", id, updatedFields);
-  alert("Editing isn't connected to Supabase yet — that's next lesson's job!");
+  const { error } = await supabaseClient
+    .from('expenses')
+    .update(updatedFields)
+    .eq('id', id);
+
+  if (error) throw error;
 }
 
 async function deleteExpense(id) {
-  // NOT CONNECTED YET — wiring this up next lesson.
-  console.log("deleteExpense stub called with:", id);
-  alert("Deleting isn't connected to Supabase yet — that's next lesson's job!");
+  const { error } = await supabaseClient
+    .from('expenses')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
 }
 
 // ---------------------------------------------------
@@ -191,7 +195,7 @@ form.addEventListener('submit', async (event) => {
 
   try {
     if (editingId) {
-      await updateExpense(editingId, entry); // stub for now
+      await updateExpense(editingId, entry); // real Supabase update
       exitEditMode();
     } else {
       await createExpense(entry); // real Supabase insert
@@ -212,7 +216,16 @@ entriesList.addEventListener('click', async (event) => {
   if (!id) return;
 
   if (event.target.classList.contains('delete-btn')) {
-    await deleteExpense(id); // stub for now
+    const confirmed = confirm('Delete this entry? This can\'t be undone.');
+    if (!confirmed) return;
+
+    try {
+      await deleteExpense(id); // real Supabase delete
+      await renderExpenses();
+    } catch (err) {
+      console.error("Couldn't delete expense in Supabase:", err);
+      alert("Couldn't delete that entry — check the console for the error.");
+    }
   }
 
   if (event.target.classList.contains('edit-btn')) {
