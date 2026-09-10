@@ -27,8 +27,8 @@ if (!loggedInUser) {
 // SUPABASE_KEY: the "Publishable key" (this used to be called the "anon key" —
 // same idea, safe to use in frontend code, do NOT use the secret key here)
 
-const SUPABASE_URL = "PASTE_YOUR_PROJECT_URL_HERE";
-const SUPABASE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+const SUPABASE_URL = "https://osfvossfnxobhcxvddtz.supabase.co";
+const SUPABASE_KEY = "sb_publishable_ITsFlK5Bv5FTlMi9eDUQ_w_jTd2_yJV";
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
